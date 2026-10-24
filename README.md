@@ -24,8 +24,7 @@
 body {
   font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
   margin: 0;
-  background: linear-gradient(180deg, #f0f7f4 0%, #f8fcfa 100%);
-  background-attachment: fixed;
+  background: #ffffff;
   color: var(--text);
   line-height: 1.5;
   min-height: 100vh;
