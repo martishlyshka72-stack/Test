@@ -477,17 +477,14 @@ const RAW = [
 {t:"Уход",q:"при поступлении тяжелобольного в приемное отделение стационара медицинская сестра должна",a:["срочно вызвать дежурного врача","транспортировать пациента в реанимационное отделение","оформить необходимую медицинскую документацию","начать оказание медицинской помощи"],c:0},
 {t:"История",q:"основоположницей системы ухода за пациентами является",a:["дарья севастопольская","доротея орем","екатерина бакунина","флоренс найтингейл"],c:3}
 ];
-
 let state = { questions: [], current: 0, answers: [], sessionErrors: [], startTime: 0, timerId: null };
 function loadStorage() { try { const s = localStorage.getItem('quiz348'); if (s) return JSON.parse(s); } catch(e) {} return { lastResult: null, errorIds: [], customCorrect: {}, shuffle: false }; }
 function saveStorage(d) { try { localStorage.setItem('quiz348', JSON.stringify(d)); } catch(e) {} }
 let storage = loadStorage();
 function applyCustomCorrect() { if (!storage.customCorrect) return; for (const id in storage.customCorrect) { if (RAW[id]) RAW[id].c = storage.customCorrect[id]; } }
 applyCustomCorrect();
-
 function showModal(text, okText) { document.getElementById('modalText').textContent = text; document.getElementById('modalOk').textContent = okText || 'ОК'; document.getElementById('modal').classList.add('show'); }
 function closeModal() { document.getElementById('modal').classList.remove('show'); }
-
 function showScreen(name) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(name).classList.add('active');
@@ -495,7 +492,6 @@ function showScreen(name) {
   if (name === 'home') renderHome();
   if (name === 'editor') renderEditor();
 }
-
 function renderHome() {
   const dash = document.getElementById('dashboard');
   const lr = storage.lastResult;
@@ -512,9 +508,7 @@ function renderHome() {
   if (errs.length > 0) { rb.style.display = 'block'; document.getElementById('errCount').textContent = errs.length; } else { rb.style.display = 'none'; }
   document.getElementById('shuffleBtn').textContent = '🔀 Перемешать: ' + (storage.shuffle ? 'вкл' : 'выкл');
 }
-
 function toggleShuffle() { storage.shuffle = !storage.shuffle; saveStorage(storage); renderHome(); }
-
 function startTest() {
   const theme = document.getElementById('themeSelect').value;
   let pool = theme === 'all' ? [...RAW] : RAW.filter(q => q.t === theme);
@@ -522,7 +516,6 @@ function startTest() {
   if (storage.shuffle) pool = shuffleArr(pool);
   startWithQuestions(pool);
 }
-
 function repeatErrors() {
   const ids = (storage.errorIds || []).filter(id => RAW[id]);
   if (!ids.length) { showModal('Ошибок нет! 🎉'); return; }
@@ -530,18 +523,14 @@ function repeatErrors() {
   if (storage.shuffle) pool = shuffleArr(pool);
   startWithQuestions(pool);
 }
-
 function shuffleArr(a) { const b = [...a]; for (let i = b.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [b[i], b[j]] = [b[j], b[i]]; } return b; }
-
 function startWithQuestions(pool) {
   if (!pool.length) { showModal('Нет вопросов'); return; }
   state.questions = pool; state.current = 0; state.answers = []; state.sessionErrors = []; state.startTime = Date.now();
   showScreen('quiz'); startTimer(); renderQuestion();
 }
-
 function startTimer() { if (state.timerId) clearInterval(state.timerId); state.timerId = setInterval(() => { const sec = Math.floor((Date.now() - state.startTime) / 1000); const m = Math.floor(sec / 60).toString().padStart(2, '0'); const s = (sec % 60).toString().padStart(2, '0'); const el = document.getElementById('timer'); if (el) el.textContent = m + ':' + s; }, 1000); }
 function stopTimer() { if (state.timerId) { clearInterval(state.timerId); state.timerId = null; } }
-
 function renderQuestion() {
   const q = state.questions[state.current]; const total = state.questions.length; const idx = state.current;
   document.getElementById('progText').textContent = `Вопрос ${idx + 1} из ${total}`;
@@ -564,7 +553,6 @@ function renderQuestion() {
   document.getElementById('nextBtn').textContent = idx === total - 1 ? 'Завершить ✓' : 'Дальше →';
   document.getElementById('questionCard').style.background = 'var(--card)';
 }
-
 function selectAnswer(chosen) {
   const q = state.questions[state.current];
   const isCorrect = chosen === q.c;
@@ -580,10 +568,8 @@ function selectAnswer(chosen) {
   document.getElementById('nextBtn').disabled = false;
   document.getElementById('progFill').style.width = ((state.current + 1) / state.questions.length * 100) + '%';
 }
-
 function nextQuestion() { state.current++; if (state.current >= state.questions.length) finishTest(); else renderQuestion(); }
 function confirmExit() { showModal('Выйти из теста? Прогресс сессии не сохранится.', 'Выйти'); document.getElementById('modalOk').onclick = function(){ stopTimer(); closeModal(); showScreen('home'); document.getElementById('modalOk').onclick = closeModal; }; }
-
 function finishTest() {
   stopTimer();
   const total = state.answers.length; const ok = state.answers.filter(a => a.correct).length; const err = total - ok;
@@ -614,7 +600,6 @@ function finishTest() {
   document.getElementById('repeatResBtn').style.display = wrongs.length ? 'block' : 'none';
   showScreen('results');
 }
-
 function shareResult() {
   const lr = storage.lastResult;
   if (!lr) return;
@@ -622,7 +607,6 @@ function shareResult() {
   const text = `Мой результат теста: ${pct}% (${lr.ok}/${lr.total})`;
   if (navigator.share) { navigator.share({ title: 'Результат теста', text: text }); } else { showModal(text); }
 }
-
 function renderEditor() {
   const sel = document.getElementById('editorTheme');
   const themes = [...new Set(RAW.map(q => q.t))];
@@ -634,14 +618,11 @@ function renderEditor() {
   if (search) items = items.filter(q => q.q.toLowerCase().includes(search));
   list.innerHTML = items.map(q => `<div class="editor-item"><div class="editor-q">${q.q}</div><div class="editor-answers">${q.a.map((ans, ai) => `<label><input type="radio" name="edit_${q._id}" value="${ai}" ${q.c===ai?'checked':''} onchange="setCorrect(${q._id}, ${ai})"> ${ans}</label>`).join('')}</div></div>`).join('');
 }
-
 function setCorrect(qid, ai) { RAW[qid].c = ai; if (!storage.customCorrect) storage.customCorrect = {}; storage.customCorrect[qid] = ai; saveStorage(storage); }
-
 function resetAll() {
   showModal('Сбросить всю статистику, ошибки и правки ответов?', 'Сбросить');
   document.getElementById('modalOk').onclick = function(){ storage = { lastResult: null, errorIds: [], customCorrect: {}, shuffle: false }; saveStorage(storage); closeModal(); renderHome(); document.getElementById('modalOk').onclick = closeModal; };
 }
-
 renderHome();
 </script>
 </body>
