@@ -1,329 +1,128 @@
+<!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Тесты — Сестринское дело 30 СД ОЗО Госы (348)</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>Тесты 348</title>
 <style>
-  :root {
-  --bg: #f0f7f4;
-  --card: #ffffff;
-  --text: #2d3a35;
-  --muted: #7a8b84;
-  --primary: #4db6a0;
-  --primary-2: #6ecbb5;
-  --primary-dark: #3a9683;
-  --green: #4db6a0;
-  --green-bg: #d9f2ea;
-  --red: #ef8a7a;
-  --red-bg: #fce4de;
-  --border: #e3ede9;
-  --shadow: 0 2px 8px rgba(77, 182, 160, 0.08), 0 1px 3px rgba(0,0,0,0.04);
-  --shadow-lg: 0 4px 16px rgba(77, 182, 160, 0.12);
-}
-* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-body {
-  font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
-  margin: 0;
-  background: #ffffff;
-  color: var(--text);
-  line-height: 1.5;
-  min-height: 100vh;
-}
-.screen { display: none; padding: 16px; max-width: 720px; margin: 0 auto; padding-bottom: 40px; }
-.screen.active { display: block; animation: fade .25s ease; }
-@keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
-h1 { font-size: 22px; margin: 0 0 6px; font-weight: 700; color: var(--text); }
-h2 { font-size: 17px; margin: 20px 0 10px; font-weight: 600; color: var(--text); }
-.sub { color: var(--muted); font-size: 13px; margin-bottom: 18px; }
-button {
-  font-family: inherit;
-  font-size: 16px;
-  padding: 14px 18px;
-  border: none;
-  border-radius: 14px;
-  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-2) 100%);
-  color: #fff;
-  width: 100%;
-  margin: 6px 0;
-  cursor: pointer;
-  font-weight: 600;
-  transition: transform .15s, box-shadow .15s;
-  box-shadow: 0 3px 10px rgba(77, 182, 160, 0.25);
-}
-button:active { transform: scale(.98); box-shadow: 0 1px 4px rgba(77, 182, 160, 0.25); }
-button.sec {
-  background: #fff;
-  color: var(--primary-dark);
-  border: 1.5px solid var(--primary);
-  box-shadow: none;
-}
-button.warn { background: linear-gradient(135deg, #f5b878 0%, #f7c98f 100%); box-shadow: 0 3px 10px rgba(245, 184, 120, 0.3); }
-button.danger { background: linear-gradient(135deg, #ef8a7a 0%, #f5a396 100%); box-shadow: 0 3px 10px rgba(239, 138, 122, 0.25); }
-button:disabled { background: #cfded9; box-shadow: none; opacity: .6; }
-.card {
-  background: var(--card);
-  border-radius: 18px;
-  padding: 18px;
-  margin-bottom: 14px;
-  box-shadow: var(--shadow);
-  border: 1px solid var(--border);
-}
-.progress-wrap {
-  height: 10px;
-  background: var(--border);
-  border-radius: 5px;
-  overflow: hidden;
-  margin: 12px 0;
-}
-.progress-fill {
-  height: 100%;
-  background: linear-gradient(90deg, var(--primary), var(--primary-2));
-  transition: width .4s ease;
-  width: 0;
-  border-radius: 5px;
-}
-.progress-fill.good { background: linear-gradient(90deg, #4db6a0, #7dd4bf); }
-.progress-fill.bad { background: linear-gradient(90deg, #ef8a7a, #f5a396); }
-.q-number {
-  font-size: 12px;
-  color: var(--primary-dark);
-  margin-bottom: 6px;
-  text-transform: uppercase;
-  letter-spacing: .5px;
-  font-weight: 600;
-}
-.q-text { font-size: 17px; font-weight: 600; margin-bottom: 14px; line-height: 1.45; color: var(--text); }
-.answer {
-  display: flex;
-  align-items: flex-start;
-  padding: 14px 16px;
-  margin: 8px 0;
-  border-radius: 14px;
-  background: #f6fbf9;
-  border: 2px solid transparent;
-  cursor: pointer;
-  font-size: 15px;
-  transition: all .2s;
-}
-.answer:active { background: #eef8f4; }
-.answer input {
-  margin-right: 12px;
-  margin-top: 2px;
-  transform: scale(1.3);
-  flex-shrink: 0;
-  accent-color: var(--primary);
-}
-.answer.correct {
-  background: var(--green-bg);
-  border-color: var(--green);
-  box-shadow: 0 2px 8px rgba(77, 182, 160, 0.2);
-}
-.answer.wrong {
-  background: var(--red-bg);
-  border-color: var(--red);
-}
-.answer.disabled { pointer-events: none; }
-.stats-bar { display: flex; gap: 10px; margin: 14px 0; font-size: 14px; font-weight: 600; }
-.stats-bar > div {
-  flex: 1;
-  text-align: center;
-  padding: 12px 6px;
-  border-radius: 14px;
-  background: var(--card);
-  box-shadow: var(--shadow);
-  border: 1px solid var(--border);
-}
-.stat-ok { color: var(--green); }
-.stat-err { color: var(--red); }
-.stat-pct { color: var(--primary-dark); }
-.big-percent { font-size: 28px; font-weight: 700; text-align: center; margin: 10px 0 0; color: var(--text); }
-.grade { text-align: center; font-size: 17px; font-weight: 600; margin-bottom: 16px; }
-.grade.excellent { color: var(--green); }
-.grade.good { color: #e0a458; }
-.grade.bad { color: var(--red); }
-.theme-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 11px 0;
-  border-bottom: 1px solid var(--border);
-  font-size: 14px;
-}
-.theme-row:last-child { border-bottom: none; }
-.theme-name { flex: 1; padding-right: 10px; }
-.theme-pct { font-weight: 600; }
-.theme-pct.good { color: var(--green); }
-.theme-pct.mid { color: #e0a458; }
-.theme-pct.bad { color: var(--red); }
-.error-item {
-  padding: 14px;
-  border-left: 4px solid var(--red);
-  background: var(--card);
-  border-radius: 12px;
-  margin-bottom: 10px;
-  font-size: 14px;
-  box-shadow: var(--shadow);
-  border-top: 1px solid var(--border);
-  border-right: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-}
-.error-q { font-weight: 600; margin-bottom: 6px; }
-.error-wrong { color: var(--red); margin: 4px 0; }
-.error-right { color: var(--green); font-weight: 600; }
-.editor-item {
-  padding: 14px;
-  background: var(--card);
-  border-radius: 14px;
-  margin-bottom: 10px;
-  font-size: 14px;
-  box-shadow: var(--shadow);
-  border: 1px solid var(--border);
-}
-.editor-q { font-weight: 600; margin-bottom: 8px; }
-.editor-answers label {
-  display: block;
-  padding: 9px 10px;
-  margin: 4px 0;
-  background: #f6fbf9;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: background .15s;
-}
-.editor-answers label:active { background: #eef8f4; }
-.editor-answers input { margin-right: 8px; accent-color: var(--primary); }
-select {
-  font-family: inherit;
-  font-size: 16px;
-  padding: 13px;
-  border-radius: 12px;
-  border: 1.5px solid var(--border);
-  width: 100%;
-  background: var(--card);
-  color: var(--text);
-  margin-bottom: 10px;
-}
-.back-link {
-  display: inline-block;
-  color: var(--primary-dark);
-  font-size: 15px;
-  margin-bottom: 10px;
-  cursor: pointer;
-  font-weight: 600;
-}
-.badge {
-  display: inline-block;
-  background: var(--primary);
-  color: #fff;
-  font-size: 11px;
-  padding: 2px 8px;
-  border-radius: 10px;
-  margin-left: 6px;
-}
-.circle-wrap { display: flex; justify-content: center; margin: 10px 0; }
-svg.circle { width: 140px; height: 140px; transform: rotate(-90deg); }
-svg.circle circle { fill: none; stroke-width: 12; stroke-linecap: round; }
-svg.circle .bg { stroke: var(--border); }
-svg.circle .fg { stroke: var(--primary); transition: stroke-dashoffset .6s; }
-.circle-text {
-  text-align: center;
-  margin-top: -85px;
-  margin-bottom: 40px;
-  font-size: 30px;
-  font-weight: 700;
-  color: var(--text);
-}
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(45, 58, 53, 0.4);
-  backdrop-filter: blur(4px);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 100;
-  padding: 20px;
-}
-.modal-overlay.show { display: flex; }
-.modal {
-  background: var(--card);
-  border-radius: 20px;
-  padding: 22px;
-  max-width: 400px;
-  width: 100%;
-  box-shadow: var(--shadow-lg);
-}
-.modal p { margin: 0 0 16px; font-size: 15px; }
-.tag {
-  display: inline-block;
-  font-size: 11px;
-  background: var(--primary);
-  color: #fff;
-  padding: 2px 8px;
-  border-radius: 8px;
-  margin-left: 6px;
-  vertical-align: middle;
-}
-.search-box {
-  width: 100%;
-  padding: 12px 14px;
-  border-radius: 12px;
-  border: 1.5px solid var(--border);
-  background: var(--card);
-  color: var(--text);
-  font-size: 15px;
-  margin-bottom: 10px;
-  font-family: inherit;
-}
-.search-box:focus { outline: none; border-color: var(--primary); }
+:root{--bg:#fff;--card:#fff;--text:#2d3a35;--muted:#7a8b84;--primary:#4db6a0;--primary-2:#6ecbb5;--primary-dark:#3a9683;--green:#4db6a0;--green-bg:#d9f2ea;--red:#ef8a7a;--red-bg:#fce4de;--border:#e3ede9;--shadow:0 2px 8px rgba(77,182,160,.08),0 1px 3px rgba(0,0,0,.04);--shadow-lg:0 4px 16px rgba(77,182,160,.12)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{font-family:-apple-system,"Segoe UI",Roboto,sans-serif;margin:0;background:#fff;color:var(--text);line-height:1.5;min-height:100vh}
+.screen{display:none;padding:16px;max-width:720px;margin:0 auto;padding-bottom:40px}
+.screen.active{display:block;animation:fade .25s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+h1{font-size:22px;margin:0 0 6px;font-weight:700}
+h2{font-size:17px;margin:20px 0 10px;font-weight:600}
+.sub{color:var(--muted);font-size:13px;margin-bottom:18px}
+button{font-family:inherit;font-size:16px;padding:14px 18px;border:none;border-radius:14px;background:linear-gradient(135deg,var(--primary) 0%,var(--primary-2) 100%);color:#fff;width:100%;margin:6px 0;cursor:pointer;font-weight:600;transition:transform .15s,box-shadow .15s;box-shadow:0 3px 10px rgba(77,182,160,.25)}
+button:active{transform:scale(.98);box-shadow:0 1px 4px rgba(77,182,160,.25)}
+button.sec{background:#fff;color:var(--primary-dark);border:1.5px solid var(--primary);box-shadow:none}
+button.warn{background:linear-gradient(135deg,#f5b878 0%,#f7c98f 100%);box-shadow:0 3px 10px rgba(245,184,120,.3)}
+button.danger{background:linear-gradient(135deg,#ef8a7a 0%,#f5a396 100%);box-shadow:0 3px 10px rgba(239,138,122,.25)}
+button:disabled{background:#cfded9;box-shadow:none;opacity:.6}
+.card{background:var(--card);border-radius:18px;padding:18px;margin-bottom:14px;box-shadow:var(--shadow);border:1px solid var(--border)}
+.progress-wrap{height:10px;background:var(--border);border-radius:5px;overflow:hidden;margin:12px 0}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--primary),var(--primary-2));transition:width .4s ease;width:0;border-radius:5px}
+.progress-fill.good{background:linear-gradient(90deg,#4db6a0,#7dd4bf)}
+.progress-fill.bad{background:linear-gradient(90deg,#ef8a7a,#f5a396)}
+.q-number{font-size:12px;color:var(--primary-dark);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px;font-weight:600}
+.q-text{font-size:17px;font-weight:600;margin-bottom:14px;line-height:1.45}
+.answer{display:flex;align-items:flex-start;padding:14px 16px;margin:8px 0;border-radius:14px;background:#f6fbf9;border:2px solid transparent;cursor:pointer;font-size:15px;transition:all .2s}
+.answer:active{background:#eef8f4}
+.answer input{margin-right:12px;margin-top:2px;transform:scale(1.3);flex-shrink:0;accent-color:var(--primary)}
+.answer.correct{background:var(--green-bg);border-color:var(--green);box-shadow:0 2px 8px rgba(77,182,160,.2)}
+.answer.wrong{background:var(--red-bg);border-color:var(--red)}
+.answer.disabled{pointer-events:none}
+.stats-bar{display:flex;gap:10px;margin:14px 0;font-size:14px;font-weight:600}
+.stats-bar>div{flex:1;text-align:center;padding:12px 6px;border-radius:14px;background:var(--card);box-shadow:var(--shadow);border:1px solid var(--border)}
+.stat-ok{color:var(--green)}
+.stat-err{color:var(--red)}
+.stat-pct{color:var(--primary-dark)}
+.big-percent{font-size:28px;font-weight:700;text-align:center;margin:10px 0 0}
+.grade{text-align:center;font-size:17px;font-weight:600;margin-bottom:16px}
+.grade.excellent{color:var(--green)}
+.grade.good{color:#e0a458}
+.grade.bad{color:var(--red)}
+.theme-row{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid var(--border);font-size:14px}
+.theme-row:last-child{border-bottom:none}
+.theme-name{flex:1;padding-right:10px}
+.theme-pct{font-weight:600}
+.theme-pct.good{color:var(--green)}
+.theme-pct.mid{color:#e0a458}
+.theme-pct.bad{color:var(--red)}
+.error-item{padding:14px;border-left:4px solid var(--red);background:var(--card);border-radius:12px;margin-bottom:10px;font-size:14px;box-shadow:var(--shadow);border-top:1px solid var(--border);border-right:1px solid var(--border);border-bottom:1px solid var(--border)}
+.error-q{font-weight:600;margin-bottom:6px}
+.error-wrong{color:var(--red);margin:4px 0}
+.error-right{color:var(--green);font-weight:600}
+.editor-item{padding:14px;background:var(--card);border-radius:14px;margin-bottom:10px;font-size:14px;box-shadow:var(--shadow);border:1px solid var(--border)}
+.editor-q{font-weight:600;margin-bottom:8px}
+.editor-answers label{display:block;padding:9px 10px;margin:4px 0;background:#f6fbf9;border-radius:10px;cursor:pointer;transition:background .15s}
+.editor-answers label:active{background:#eef8f4}
+.editor-answers input{margin-right:8px;accent-color:var(--primary)}
+select{font-family:inherit;font-size:16px;padding:13px;border-radius:12px;border:1.5px solid var(--border);width:100%;background:var(--card);color:var(--text);margin-bottom:10px}
+.back-link{display:inline-block;color:var(--primary-dark);font-size:15px;margin-bottom:10px;cursor:pointer;font-weight:600}
+.circle-wrap{display:flex;justify-content:center;margin:10px 0}
+svg.circle{width:140px;height:140px;transform:rotate(-90deg)}
+svg.circle circle{fill:none;stroke-width:12;stroke-linecap:round}
+svg.circle .bg{stroke:var(--border)}
+svg.circle .fg{stroke:var(--primary);transition:stroke-dashoffset .6s}
+.circle-text{text-align:center;margin-top:-85px;margin-bottom:40px;font-size:30px;font-weight:700}
+.modal-overlay{position:fixed;inset:0;background:rgba(45,58,53,.4);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;z-index:100;padding:20px}
+.modal-overlay.show{display:flex}
+.modal{background:var(--card);border-radius:20px;padding:22px;max-width:400px;width:100%;box-shadow:var(--shadow-lg)}
+.modal p{margin:0 0 16px;font-size:15px}
+.search-box{width:100%;padding:12px 14px;border-radius:12px;border:1.5px solid var(--border);background:var(--card);color:var(--text);font-size:15px;margin-bottom:10px;font-family:inherit}
+.search-box:focus{outline:none;border-color:var(--primary)}
 </style>
 </head>
 <body>
 <div class="modal-overlay" id="modal"><div class="modal"><p id="modalText"></p><button onclick="closeModal()" id="modalOk">ОК</button></div></div>
 <div id="home" class="screen active">
-  <h1>📋 Тесты — Сестринское дело</h1>
-  <div class="sub">Итоговая аттестация · 348 вопросов</div>
-  <div class="card" id="dashboard"></div>
-  <h2>Начать тест</h2>
-  <select id="themeSelect"></select>
-  <button onclick="startTest()">▶ Начать</button>
-  <button class="sec" id="repeatBtn" onclick="repeatErrors()" style="display:none">🔁 Повторить ошибки (<span id="errCount">0</span>)</button>
-  <h2>Настройки</h2>
-  <button class="sec" onclick="showScreen('editor')">✏️ Редактор ответов</button>
-  <button class="sec" onclick="toggleShuffle()" id="shuffleBtn">🔀 Перемешать: выкл</button>
-  <button class="danger" onclick="resetAll()">🗑 Сбросить всё</button>
+<h1>📋 Тесты — Сестринское дело</h1>
+<div class="sub">Итоговая аттестация · 348 вопросов</div>
+<div class="card" id="dashboard"></div>
+<h2>Начать тест</h2>
+<select id="themeSelect"></select>
+<button onclick="startTest()">▶ Начать</button>
+<button class="warn" id="resumeBtn" onclick="resumeSession()" style="display:none">⏵ Продолжить (<span id="resumeCount">0</span>)</button>
+<button class="sec" id="repeatBtn" onclick="repeatErrors()" style="display:none">🔁 Повторить ошибки (<span id="errCount">0</span>)</button>
+<h2>Настройки</h2>
+<button class="sec" onclick="showScreen('editor')">✏️ Редактор ответов</button>
+<button class="sec" onclick="toggleShuffle()" id="shuffleBtn">🔀 Перемешать: выкл</button>
+<button class="danger" onclick="resetAll()">🗑 Сбросить всё</button>
 </div>
 <div id="quiz" class="screen">
-  <span class="back-link" onclick="confirmExit()">← Выйти</span>
-  <div class="progress-wrap"><div class="progress-fill" id="progFill"></div></div>
-  <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--muted)"><span id="progText">Вопрос 0 из 0</span><span id="timer">00:00</span></div>
-  <div class="card" id="questionCard" style="margin-top:12px"><div class="q-number" id="qTheme"></div><div class="q-text" id="qText"></div><div id="answersWrap"></div></div>
-  <div class="stats-bar"><div>✅ <span class="stat-ok" id="okCount">0</span></div><div>❌ <span class="stat-err" id="errCount2">0</span></div><div>📊 <span class="stat-pct" id="pctCount">0%</span></div></div>
-  <button id="nextBtn" onclick="nextQuestion()" disabled>Дальше →</button>
+<span class="back-link" onclick="confirmExit()">← Выйти</span>
+<div class="progress-wrap"><div class="progress-fill" id="progFill"></div></div>
+<div style="display:flex;justify-content:space-between;font-size:13px;color:var(--muted)"><span id="progText">Вопрос 0 из 0</span><span id="timer">00:00</span></div>
+<div class="card" id="questionCard" style="margin-top:12px"><div class="q-number" id="qTheme"></div><div class="q-text" id="qText"></div><div id="answersWrap"></div></div>
+<div class="stats-bar"><div>✅ <span class="stat-ok" id="okCount">0</span></div><div>❌ <span class="stat-err" id="errCount2">0</span></div><div>📊 <span class="stat-pct" id="pctCount">0%</span></div></div>
+<button id="nextBtn" onclick="nextQuestion()" disabled>Дальше →</button>
 </div>
 <div id="results" class="screen">
-  <h1>Результат</h1>
-  <div class="card">
-    <div class="circle-wrap"><svg class="circle" viewBox="0 0 140 140"><circle class="bg" cx="70" cy="70" r="60"></circle><circle class="fg" cx="70" cy="70" r="60" id="circleFg" stroke-dasharray="377" stroke-dashoffset="377"></circle></svg></div>
-    <div class="circle-text" id="resPercent">0%</div>
-    <div class="grade" id="resGrade"></div>
-    <div class="stats-bar"><div>✅ <span class="stat-ok" id="resOk">0</span></div><div>❌ <span class="stat-err" id="resErr">0</span></div><div>⏱ <span id="resTime">0:00</span></div></div>
-  </div>
-  <h2>По темам</h2><div class="card" id="themeStats"></div>
-  <h2>Ошибки</h2><div id="errorsList"></div>
-  <button class="warn" id="repeatResBtn" onclick="repeatErrors()">🔁 Повторить только ошибки</button>
-  <button class="sec" onclick="shareResult()">📤 Поделиться результатом</button>
-  <button onclick="showScreen('home')">🏠 На главную</button>
+<h1>Результат</h1>
+<div class="card">
+<div class="circle-wrap"><svg class="circle" viewBox="0 0 140 140"><circle class="bg" cx="70" cy="70" r="60"></circle><circle class="fg" cx="70" cy="70" r="60" id="circleFg" stroke-dasharray="377" stroke-dashoffset="377"></circle></svg></div>
+<div class="circle-text" id="resPercent">0%</div>
+<div class="grade" id="resGrade"></div>
+<div class="stats-bar"><div>✅ <span class="stat-ok" id="resOk">0</span></div><div>❌ <span class="stat-err" id="resErr">0</span></div><div>⏱ <span id="resTime">0:00</span></div></div>
+</div>
+<h2>По темам</h2><div class="card" id="themeStats"></div>
+<h2>Ошибки</h2><div id="errorsList"></div>
+<button class="warn" id="repeatResBtn" onclick="repeatErrors()">🔁 Повторить только ошибки</button>
+<button class="sec" onclick="shareResult()">📤 Поделиться результатом</button>
+<button onclick="showScreen('home')">🏠 На главную</button>
 </div>
 <div id="editor" class="screen">
-  <span class="back-link" onclick="showScreen('home')">← Назад</span>
-  <h1>✏️ Редактор ответов</h1>
-  <div class="sub">Отметь правильный вариант — сохранится автоматически</div>
-  <select id="editorTheme" onchange="renderEditor()"></select>
-  <input class="search-box" id="editorSearch" placeholder="🔍 Поиск..." oninput="renderEditor()">
-  <div id="editorList"></div>
+<span class="back-link" onclick="showScreen('home')">← Назад</span>
+<h1>✏️ Редактор ответов</h1>
+<div class="sub">Отметь правильный вариант — сохранится автоматически</div>
+<select id="editorTheme" onchange="renderEditor()"></select>
+<input class="search-box" id="editorSearch" placeholder="🔍 Поиск..." oninput="renderEditor()">
+<div id="editorList"></div>
 </div>
 <script>
-const RAW = [
+const RAW=[
 {t:"Акушерство",q:"оценка новорожденного по шкале апгар проводится",a:["перед переводом из родового блока","на 10 минуте жизни","на 1-ой и 5-ой минутах жизни","перед выпиской из родильного дома"],c:2},
 {t:"Акушерство",q:"гипогалактией называется",a:["непереносимость грудного молока у ребенка","воспаление молочной железы у женщины","снижение потребности ребенка в грудном молоке","снижение выработки молока в молочных железах"],c:3},
 {t:"Акушерство",q:"первым периодом родов считается период",a:["от начала родовой деятельности до раскрытия шейки матки","с момента рождения плода до рождения последа","от раскрытия шейки матки до изгнания плода","с момента отхождения околоплодных вод"],c:0},
@@ -672,151 +471,156 @@ const RAW = [
 {t:"Уход",q:"при поступлении тяжелобольного в приемное отделение стационара медицинская сестра должна",a:["срочно вызвать дежурного врача","транспортировать пациента в реанимационное отделение","оформить необходимую медицинскую документацию","начать оказание медицинской помощи"],c:0},
 {t:"История",q:"основоположницей системы ухода за пациентами является",a:["дарья севастопольская","доротея орем","екатерина бакунина","флоренс найтингейл"],c:3}
 ];
-let state = { questions: [], current: 0, answers: [], sessionErrors: [], startTime: 0, timerId: null };
-function loadStorage() { try { const s = localStorage.getItem('quiz348'); if (s) return JSON.parse(s); } catch(e) {} return { lastResult: null, errorIds: [], customCorrect: {}, shuffle: false }; }
-function saveStorage(d) { try { localStorage.setItem('quiz348', JSON.stringify(d)); } catch(e) {} }
-let storage = loadStorage();
-function applyCustomCorrect() { if (!storage.customCorrect) return; for (const id in storage.customCorrect) { if (RAW[id]) RAW[id].c = storage.customCorrect[id]; } }
+let state={questions:[],current:0,answers:[],sessionErrors:[],startTime:0,timerId:null};
+function loadStorage(){try{const s=localStorage.getItem('quiz348');if(s)return JSON.parse(s)}catch(e){}return{lastResult:null,errorIds:[],customCorrect:{},shuffle:false,session:null}}
+function saveStorage(d){try{localStorage.setItem('quiz348',JSON.stringify(d))}catch(e){}}
+let storage=loadStorage();
+function applyCustomCorrect(){if(!storage.customCorrect)return;for(const id in storage.customCorrect){if(RAW[id])RAW[id].c=storage.customCorrect[id]}}
 applyCustomCorrect();
-function showModal(text, okText) { document.getElementById('modalText').textContent = text; document.getElementById('modalOk').textContent = okText || 'ОК'; document.getElementById('modal').classList.add('show'); }
-function closeModal() { document.getElementById('modal').classList.remove('show'); }
-function showScreen(name) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById(name).classList.add('active');
-  window.scrollTo(0, 0);
-  if (name === 'home') renderHome();
-  if (name === 'editor') renderEditor();
+function showModal(text,okText){document.getElementById('modalText').textContent=text;document.getElementById('modalOk').textContent=okText||'ОК';document.getElementById('modal').classList.add('show')}
+function closeModal(){document.getElementById('modal').classList.remove('show')}
+function showScreen(name){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(name).classList.add('active');window.scrollTo(0,0);if(name==='home')renderHome();if(name==='editor')renderEditor()}
+function renderHome(){
+const dash=document.getElementById('dashboard');
+const lr=storage.lastResult;
+if(lr){const pct=Math.round(lr.ok/lr.total*100);const color=pct>=90?'var(--green)':pct>=70?'#e0a458':'var(--red)';dash.innerHTML=`<div style="font-size:13px;color:var(--muted)">Последний результат</div><div style="font-size:32px;font-weight:700;color:${color}">${pct}%</div><div style="font-size:13px;color:var(--muted)">✅ ${lr.ok} · ❌ ${lr.err} · ${new Date(lr.date).toLocaleDateString('ru')}</div>`}else{dash.innerHTML=`<div style="color:var(--muted)">Ещё не проходил. Начни! 🚀</div>`}
+const sel=document.getElementById('themeSelect');
+const themes=[...new Set(RAW.map(q=>q.t))];
+sel.innerHTML=`<option value="all">Все вопросы (${RAW.length})</option>`+themes.map(t=>{const c=RAW.filter(q=>q.t===t).length;return`<option value="${t}">${t} (${c})</option>`}).join('');
+const errs=(storage.errorIds||[]).filter(id=>RAW[id]);
+const rb=document.getElementById('repeatBtn');
+if(errs.length>0){rb.style.display='block';document.getElementById('errCount').textContent=errs.length}else{rb.style.display='none'}
+document.getElementById('shuffleBtn').textContent='🔀 Перемешать: '+(storage.shuffle?'вкл':'выкл');
+const rs=document.getElementById('resumeBtn');
+if(storage.session&&storage.session.questions&&storage.session.questions.length){rs.style.display='block';document.getElementById('resumeCount').textContent=`${storage.session.current+1} из ${storage.session.questions.length}`}else{rs.style.display='none'}
 }
-function renderHome() {
-  const dash = document.getElementById('dashboard');
-  const lr = storage.lastResult;
-  if (lr) {
-    const pct = Math.round(lr.ok / lr.total * 100);
-    const color = pct >= 90 ? 'var(--green)' : pct >= 70 ? '#f59e0b' : 'var(--red)';
-    dash.innerHTML = `<div style="font-size:13px;color:var(--muted)">Последний результат</div><div style="font-size:32px;font-weight:700;color:${color}">${pct}%</div><div style="font-size:13px;color:var(--muted)">✅ ${lr.ok} · ❌ ${lr.err} · ${new Date(lr.date).toLocaleDateString('ru')}</div>`;
-  } else { dash.innerHTML = `<div style="color:var(--muted)">Ещё не проходил. Начни! 🚀</div>`; }
-  const sel = document.getElementById('themeSelect');
-  const themes = [...new Set(RAW.map(q => q.t))];
-  sel.innerHTML = `<option value="all">Все вопросы (${RAW.length})</option>` + themes.map(t => { const c = RAW.filter(q => q.t === t).length; return `<option value="${t}">${t} (${c})</option>`; }).join('');
-  const errs = (storage.errorIds || []).filter(id => RAW[id]);
-  const rb = document.getElementById('repeatBtn');
-  if (errs.length > 0) { rb.style.display = 'block'; document.getElementById('errCount').textContent = errs.length; } else { rb.style.display = 'none'; }
-  document.getElementById('shuffleBtn').textContent = '🔀 Перемешать: ' + (storage.shuffle ? 'вкл' : 'выкл');
+function toggleShuffle(){storage.shuffle=!storage.shuffle;saveStorage(storage);renderHome()}
+function startTest(){
+const theme=document.getElementById('themeSelect').value;
+let pool=theme==='all'?[...RAW]:RAW.filter(q=>q.t===theme);
+pool=pool.map(q=>({...q,_id:RAW.indexOf(q)}));
+if(storage.shuffle)pool=shuffleArr(pool);
+startWithQuestions(pool)
 }
-function toggleShuffle() { storage.shuffle = !storage.shuffle; saveStorage(storage); renderHome(); }
-function startTest() {
-  const theme = document.getElementById('themeSelect').value;
-  let pool = theme === 'all' ? [...RAW] : RAW.filter(q => q.t === theme);
-  pool = pool.map(q => ({...q, _id: RAW.indexOf(q)}));
-  if (storage.shuffle) pool = shuffleArr(pool);
-  startWithQuestions(pool);
+function repeatErrors(){
+const ids=(storage.errorIds||[]).filter(id=>RAW[id]);
+if(!ids.length){showModal('Ошибок нет! 🎉');return}
+let pool=ids.map(id=>({...RAW[id],_id:id}));
+if(storage.shuffle)pool=shuffleArr(pool);
+startWithQuestions(pool)
 }
-function repeatErrors() {
-  const ids = (storage.errorIds || []).filter(id => RAW[id]);
-  if (!ids.length) { showModal('Ошибок нет! 🎉'); return; }
-  let pool = ids.map(id => ({...RAW[id], _id: id}));
-  if (storage.shuffle) pool = shuffleArr(pool);
-  startWithQuestions(pool);
+function shuffleArr(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]]}return b}
+function startWithQuestions(pool){
+if(!pool.length){showModal('Нет вопросов');return}
+state.questions=pool;state.current=0;state.answers=[];state.sessionErrors=[];state.startTime=Date.now();
+saveSession();
+showScreen('quiz');startTimer();renderQuestion()
 }
-function shuffleArr(a) { const b = [...a]; for (let i = b.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [b[i], b[j]] = [b[j], b[i]]; } return b; }
-function startWithQuestions(pool) {
-  if (!pool.length) { showModal('Нет вопросов'); return; }
-  state.questions = pool; state.current = 0; state.answers = []; state.sessionErrors = []; state.startTime = Date.now();
-  showScreen('quiz'); startTimer(); renderQuestion();
+function saveSession(){
+storage.session={questions:state.questions.map(q=>q._id),current:state.current,answers:state.answers,sessionErrors:state.sessionErrors,startTime:state.startTime};
+saveStorage(storage)
 }
-function startTimer() { if (state.timerId) clearInterval(state.timerId); state.timerId = setInterval(() => { const sec = Math.floor((Date.now() - state.startTime) / 1000); const m = Math.floor(sec / 60).toString().padStart(2, '0'); const s = (sec % 60).toString().padStart(2, '0'); const el = document.getElementById('timer'); if (el) el.textContent = m + ':' + s; }, 1000); }
-function stopTimer() { if (state.timerId) { clearInterval(state.timerId); state.timerId = null; } }
-function renderQuestion() {
-  const q = state.questions[state.current]; const total = state.questions.length; const idx = state.current;
-  document.getElementById('progText').textContent = `Вопрос ${idx + 1} из ${total}`;
-  document.getElementById('progFill').style.width = (idx / total * 100) + '%';
-  document.getElementById('qTheme').textContent = '📁 ' + q.t;
-  document.getElementById('qText').textContent = q.q;
-  const wrap = document.getElementById('answersWrap'); wrap.innerHTML = '';
-  q.a.forEach((ans, i) => {
-    const label = document.createElement('label'); label.className = 'answer';
-    const radio = document.createElement('input'); radio.type = 'radio'; radio.name = 'ans'; radio.value = i;
-    radio.addEventListener('change', () => selectAnswer(i));
-    label.appendChild(radio);
-    const span = document.createElement('span'); span.textContent = ans; label.appendChild(span);
-    wrap.appendChild(label);
-  });
-  const ok = state.answers.filter(a => a.correct).length; const err = state.answers.filter(a => !a.correct).length;
-  const pct = state.answers.length ? Math.round(ok / state.answers.length * 100) : 0;
-  document.getElementById('okCount').textContent = ok; document.getElementById('errCount2').textContent = err; document.getElementById('pctCount').textContent = pct + '%';
-  document.getElementById('nextBtn').disabled = true;
-  document.getElementById('nextBtn').textContent = idx === total - 1 ? 'Завершить ✓' : 'Дальше →';
-  document.getElementById('questionCard').style.background = 'var(--card)';
+function clearSession(){if(storage.session){delete storage.session;saveStorage(storage)}}
+function resumeSession(){
+if(!storage.session)return;
+const s=storage.session;
+const pool=s.questions.map(id=>RAW[id]).filter(Boolean).map(q=>({...q,_id:RAW.indexOf(q)}));
+if(!pool.length){showModal('Сессия не найдена');clearSession();return}
+state.questions=pool;
+state.current=Math.min(s.current,pool.length-1);
+state.answers=s.answers||[];
+state.sessionErrors=s.sessionErrors||[];
+state.startTime=s.startTime||Date.now();
+showScreen('quiz');startTimer();renderQuestion()
 }
-function selectAnswer(chosen) {
-  const q = state.questions[state.current];
-  const isCorrect = chosen === q.c;
-  const labels = document.querySelectorAll('#answersWrap .answer');
-  labels.forEach(l => l.classList.add('disabled'));
-  labels[q.c].classList.add('correct');
-  if (isCorrect) { document.getElementById('questionCard').style.background = 'var(--green-bg)'; }
-  else { labels[chosen].classList.add('wrong'); document.getElementById('questionCard').style.background = 'var(--red-bg)'; state.sessionErrors.push(q._id); }
-  state.answers.push({ id: q._id, correct: isCorrect, chosen: chosen });
-  const ok = state.answers.filter(a => a.correct).length; const err = state.answers.filter(a => !a.correct).length;
-  const pct = Math.round(ok / state.answers.length * 100);
-  document.getElementById('okCount').textContent = ok; document.getElementById('errCount2').textContent = err; document.getElementById('pctCount').textContent = pct + '%';
-  document.getElementById('nextBtn').disabled = false;
-  document.getElementById('progFill').style.width = ((state.current + 1) / state.questions.length * 100) + '%';
+function startTimer(){if(state.timerId)clearInterval(state.timerId);state.timerId=setInterval(()=>{const sec=Math.floor((Date.now()-state.startTime)/1000);const m=Math.floor(sec/60).toString().padStart(2,'0');const s=(sec%60).toString().padStart(2,'0');const el=document.getElementById('timer');if(el)el.textContent=m+':'+s},1000)}
+function stopTimer(){if(state.timerId){clearInterval(state.timerId);state.timerId=null}}
+function renderQuestion(){
+const q=state.questions[state.current];const total=state.questions.length;const idx=state.current;
+document.getElementById('progText').textContent=`Вопрос ${idx+1} из ${total}`;
+document.getElementById('progFill').style.width=(idx/total*100)+'%';
+document.getElementById('qTheme').textContent='📁 '+q.t;
+document.getElementById('qText').textContent=q.q;
+const wrap=document.getElementById('answersWrap');wrap.innerHTML='';
+q.a.forEach((ans,i)=>{const label=document.createElement('label');label.className='answer';const radio=document.createElement('input');radio.type='radio';radio.name='ans';radio.value=i;radio.addEventListener('change',()=>selectAnswer(i));label.appendChild(radio);const span=document.createElement('span');span.textContent=ans;label.appendChild(span);wrap.appendChild(label)});
+const ok=state.answers.filter(a=>a.correct).length;const err=state.answers.filter(a=>!a.correct).length;
+const pct=state.answers.length?Math.round(ok/state.answers.length*100):0;
+document.getElementById('okCount').textContent=ok;document.getElementById('errCount2').textContent=err;document.getElementById('pctCount').textContent=pct+'%';
+document.getElementById('nextBtn').disabled=true;
+document.getElementById('nextBtn').textContent=idx===total-1?'Завершить ✓':'Дальше →';
+document.getElementById('questionCard').style.background='var(--card)'
 }
-function nextQuestion() { state.current++; if (state.current >= state.questions.length) finishTest(); else renderQuestion(); }
-function confirmExit() { showModal('Выйти из теста? Прогресс сессии не сохранится.', 'Выйти'); document.getElementById('modalOk').onclick = function(){ stopTimer(); closeModal(); showScreen('home'); document.getElementById('modalOk').onclick = closeModal; }; }
-function finishTest() {
-  stopTimer();
-  const total = state.answers.length; const ok = state.answers.filter(a => a.correct).length; const err = total - ok;
-  const pct = Math.round(ok / total * 100);
-  document.getElementById('resPercent').textContent = pct + '%';
-  const grade = pct >= 90 ? 'excellent' : pct >= 70 ? 'good' : 'bad';
-  const gt = pct >= 90 ? 'Отлично! 🎉' : pct >= 70 ? 'Хорошо 👍' : 'Надо повторить 📖';
-  const gEl = document.getElementById('resGrade'); gEl.textContent = gt; gEl.className = 'grade ' + grade;
-  const circ = document.getElementById('circleFg');
-  const dash = 377 * (1 - pct / 100);
-  circ.style.strokeDashoffset = dash;
-  circ.style.stroke = pct >= 70 ? 'var(--green)' : 'var(--red)';
-  document.getElementById('resOk').textContent = ok; document.getElementById('resErr').textContent = err;
-  const sec = Math.floor((Date.now() - state.startTime) / 1000);
-  document.getElementById('resTime').textContent = Math.floor(sec / 60) + ':' + (sec % 60).toString().padStart(2, '0');
-  const themeMap = {};
-  state.answers.forEach(a => { const q = RAW[a.id]; if (!themeMap[q.t]) themeMap[q.t] = { ok: 0, total: 0 }; themeMap[q.t].total++; if (a.correct) themeMap[q.t].ok++; });
-  document.getElementById('themeStats').innerHTML = Object.entries(themeMap).map(([t, d]) => { const p = Math.round(d.ok / d.total * 100); const cls = p >= 90 ? 'good' : p >= 70 ? 'mid' : 'bad'; return `<div class="theme-row"><div class="theme-name">${t}</div><div class="theme-pct ${cls}">${p}% (${d.ok}/${d.total})</div></div>`; }).join('');
-  const wrongs = state.answers.filter(a => !a.correct);
-  const errsEl = document.getElementById('errorsList');
-  if (wrongs.length === 0) { errsEl.innerHTML = '<div class="card" style="color:var(--green);font-weight:600">Ошибок нет! Идеально! 🏆</div>'; }
-  else { errsEl.innerHTML = wrongs.map(a => { const q = RAW[a.id]; return `<div class="error-item"><div class="error-q">${q.q}</div><div class="error-wrong">❌ Твой ответ: ${q.a[a.chosen]}</div><div class="error-right">✅ Правильно: ${q.a[q.c]}</div></div>`; }).join(''); }
-  storage.lastResult = { ok, err, total, date: Date.now() };
-  const wrongIds = new Set(storage.errorIds || []);
-  state.answers.forEach(a => { if (a.correct) wrongIds.delete(a.id); else wrongIds.add(a.id); });
-  storage.errorIds = [...wrongIds];
-  saveStorage(storage);
-  document.getElementById('repeatResBtn').style.display = wrongs.length ? 'block' : 'none';
-  showScreen('results');
+function selectAnswer(chosen){
+const q=state.questions[state.current];
+const isCorrect=chosen===q.c;
+const labels=document.querySelectorAll('#answersWrap .answer');
+labels.forEach(l=>l.classList.add('disabled'));
+labels[q.c].classList.add('correct');
+if(isCorrect){document.getElementById('questionCard').style.background='var(--green-bg)'}
+else{labels[chosen].classList.add('wrong');document.getElementById('questionCard').style.background='var(--red-bg)';state.sessionErrors.push(q._id)}
+state.answers.push({id:q._id,correct:isCorrect,chosen:chosen});
+const ok=state.answers.filter(a=>a.correct).length;const err=state.answers.filter(a=>!a.correct).length;
+const pct=Math.round(ok/state.answers.length*100);
+document.getElementById('okCount').textContent=ok;document.getElementById('errCount2').textContent=err;document.getElementById('pctCount').textContent=pct+'%';
+document.getElementById('nextBtn').disabled=false;
+document.getElementById('progFill').style.width=((state.current+1)/state.questions.length*100)+'%';
+saveSession()
 }
-function shareResult() {
-  const lr = storage.lastResult;
-  if (!lr) return;
-  const pct = Math.round(lr.ok / lr.total * 100);
-  const text = `Мой результат теста: ${pct}% (${lr.ok}/${lr.total})`;
-  if (navigator.share) { navigator.share({ title: 'Результат теста', text: text }); } else { showModal(text); }
+function nextQuestion(){state.current++;saveSession();if(state.current>=state.questions.length)finishTest();else renderQuestion()}
+function confirmExit(){showModal('Выйти из теста? Прогресс сохранится, сможешь продолжить.','Выйти');document.getElementById('modalOk').onclick=function(){stopTimer();saveSession();closeModal();showScreen('home');document.getElementById('modalOk').onclick=closeModal}}
+function finishTest(){
+stopTimer();
+const total=state.answers.length;const ok=state.answers.filter(a=>a.correct).length;const err=total-ok;
+const pct=Math.round(ok/total*100);
+document.getElementById('resPercent').textContent=pct+'%';
+const grade=pct>=90?'excellent':pct>=70?'good':'bad';
+const gt=pct>=90?'Отлично! 🎉':pct>=70?'Хорошо 👍':'Надо повторить 📖';
+const gEl=document.getElementById('resGrade');gEl.textContent=gt;gEl.className='grade '+grade;
+const circ=document.getElementById('circleFg');
+const dash=377*(1-pct/100);
+circ.style.strokeDashoffset=dash;
+circ.style.stroke=pct>=70?'var(--green)':'var(--red)';
+document.getElementById('resOk').textContent=ok;document.getElementById('resErr').textContent=err;
+const sec=Math.floor((Date.now()-state.startTime)/1000);
+document.getElementById('resTime').textContent=Math.floor(sec/60)+':'+(sec%60).toString().padStart(2,'0');
+const themeMap={};
+state.answers.forEach(a=>{const q=RAW[a.id];if(!themeMap[q.t])themeMap[q.t]={ok:0,total:0};themeMap[q.t].total++;if(a.correct)themeMap[q.t].ok++});
+document.getElementById('themeStats').innerHTML=Object.entries(themeMap).map(([t,d])=>{const p=Math.round(d.ok/d.total*100);const cls=p>=90?'good':p>=70?'mid':'bad';return`<div class="theme-row"><div class="theme-name">${t}</div><div class="theme-pct ${cls}">${p}% (${d.ok}/${d.total})</div></div>`}).join('');
+const wrongs=state.answers.filter(a=>!a.correct);
+const errsEl=document.getElementById('errorsList');
+if(wrongs.length===0){errsEl.innerHTML='<div class="card" style="color:var(--green);font-weight:600">Ошибок нет! Идеально! 🏆</div>'}
+else{errsEl.innerHTML=wrongs.map(a=>{const q=RAW[a.id];return`<div class="error-item"><div class="error-q">${q.q}</div><div class="error-wrong">❌ Твой ответ: ${q.a[a.chosen]}</div><div class="error-right">✅ Правильно: ${q.a[q.c]}</div></div>`}).join('')}
+storage.lastResult={ok,err,total,date:Date.now()};
+const wrongIds=new Set(storage.errorIds||[]);
+state.answers.forEach(a=>{if(a.correct)wrongIds.delete(a.id);else wrongIds.add(a.id)});
+storage.errorIds=[...wrongIds];
+saveStorage(storage);
+document.getElementById('repeatResBtn').style.display=wrongs.length?'block':'none';
+clearSession();
+showScreen('results')
 }
-function renderEditor() {
-  const sel = document.getElementById('editorTheme');
-  const themes = [...new Set(RAW.map(q => q.t))];
-  if (!sel.options.length) { sel.innerHTML = themes.map(t => `<option value="${t}">${t}</option>`).join(''); }
-  const theme = sel.value || themes[0];
-  const search = (document.getElementById('editorSearch').value || '').toLowerCase();
-  const list = document.getElementById('editorList');
-  let items = RAW.map((q, i) => ({...q, _id: i})).filter(q => q.t === theme);
-  if (search) items = items.filter(q => q.q.toLowerCase().includes(search));
-  list.innerHTML = items.map(q => `<div class="editor-item"><div class="editor-q">${q.q}</div><div class="editor-answers">${q.a.map((ans, ai) => `<label><input type="radio" name="edit_${q._id}" value="${ai}" ${q.c===ai?'checked':''} onchange="setCorrect(${q._id}, ${ai})"> ${ans}</label>`).join('')}</div></div>`).join('');
+function shareResult(){
+const lr=storage.lastResult;
+if(!lr)return;
+const pct=Math.round(lr.ok/lr.total*100);
+const text=`Мой результат теста: ${pct}% (${lr.ok}/${lr.total})`;
+if(navigator.share){navigator.share({title:'Результат теста',text:text})}else{showModal(text)}
 }
-function setCorrect(qid, ai) { RAW[qid].c = ai; if (!storage.customCorrect) storage.customCorrect = {}; storage.customCorrect[qid] = ai; saveStorage(storage); }
-function resetAll() {
-  showModal('Сбросить всю статистику, ошибки и правки ответов?', 'Сбросить');
-  document.getElementById('modalOk').onclick = function(){ storage = { lastResult: null, errorIds: [], customCorrect: {}, shuffle: false }; saveStorage(storage); closeModal(); renderHome(); document.getElementById('modalOk').onclick = closeModal; };
+function renderEditor(){
+const sel=document.getElementById('editorTheme');
+const themes=[...new Set(RAW.map(q=>q.t))];
+if(!sel.options.length){sel.innerHTML=themes.map(t=>`<option value="${t}">${t}</option>`).join('')}
+const theme=sel.value||themes[0];
+const search=(document.getElementById('editorSearch').value||'').toLowerCase();
+const list=document.getElementById('editorList');
+let items=RAW.map((q,i)=>({...q,_id:i})).filter(q=>q.t===theme);
+if(search)items=items.filter(q=>q.q.toLowerCase().includes(search));
+list.innerHTML=items.map(q=>`<div class="editor-item"><div class="editor-q">${q.q}</div><div class="editor-answers">${q.a.map((ans,ai)=>`<label><input type="radio" name="edit_${q._id}" value="${ai}" ${q.c===ai?'checked':''} onchange="setCorrect(${q._id}, ${ai})"> ${ans}</label>`).join('')}</div></div>`).join('')
+}
+function setCorrect(qid,ai){RAW[qid].c=ai;if(!storage.customCorrect)storage.customCorrect={};storage.customCorrect[qid]=ai;saveStorage(storage)}
+function resetAll(){
+showModal('Сбросить всю статистику, ошибки и правки ответов?','Сбросить');
+document.getElementById('modalOk').onclick=function(){storage={lastResult:null,errorIds:[],customCorrect:{},shuffle:false,session:null};saveStorage(storage);closeModal();renderHome();document.getElementById('modalOk').onclick=closeModal}
 }
 renderHome();
 </script>
